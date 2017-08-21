@@ -1,7 +1,7 @@
 package com.dansuse.bakingapp.recipes;
 
-import com.dansuse.bakingapp.BasePresenter;
-import com.dansuse.bakingapp.BaseView;
+import com.dansuse.bakingapp.common.BasePresenter;
+import com.dansuse.bakingapp.common.BaseView;
 
 /**
  * Created by LENOVO on 20/08/2017.

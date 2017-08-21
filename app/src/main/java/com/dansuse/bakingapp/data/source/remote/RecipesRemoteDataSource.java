@@ -16,12 +16,13 @@ import io.reactivex.annotations.NonNull;
 
 public class RecipesRemoteDataSource implements RecipesDataSource {
 
-    //DUGAAN, kalau field @Inject gini, nda bisa langsung diinject, harus panggil AndroidInjection.inject()
+    //DUGAAN, kalau field diberi annotation @Inject gini, nda bisa langsung diinject, harus panggil AndroidInjection.inject()
     //@Inject
     @NonNull
     BakingApi mBakingApi;
 
     //oleh karena itu kita pindah annotation @Inject di constructor
+    //Jika memakai annotation @Binds, maka constructor dari class concrete wajib diberi annotation @Inject
     @Inject
     public RecipesRemoteDataSource(BakingApi bakingApi) {
         mBakingApi = bakingApi;

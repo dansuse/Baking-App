@@ -10,10 +10,9 @@ import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 /**
- * Created by LENOVO on 20/08/2017.
+ * Created by Daniel on 20/08/2017.
  */
 
 @Module
@@ -23,11 +22,20 @@ public abstract class RecipesRepositoryModule {
     @Binds
     abstract RecipesDataSource provideLocalDataSource(RecipesLocalDataSource recipesLocalDataSource);
 
-    //@Module dengan modifier abstract tidak boleh mengandung both @Provides and @Binds. Harus salah satu
+    //Error:(25, 17) error: A @Module may not contain both non-static @Provides methods and abstract @Binds or @Multibinds declarations
+//    @Module dengan modifier abstract may not contain both non-static @Provides methods and abstract @Binds or @Multibinds declarations
 //    @Singleton
 //    @Local
 //    @Provides
 //    RecipesDataSource provideLocalDataSource(){
+//        return new RecipesLocalDataSource();
+//    }
+
+//    kalau mau pakai annotation @Provides, maka harus memakai static method
+//    @Singleton
+//    @Local
+//    @Provides
+//    static RecipesDataSource provideLocalDataSource(){
 //        return new RecipesLocalDataSource();
 //    }
 

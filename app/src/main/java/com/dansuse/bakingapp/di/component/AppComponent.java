@@ -1,40 +1,28 @@
 package com.dansuse.bakingapp.di.component;
 
-import android.app.Application;
-
 import com.dansuse.bakingapp.BakingApplication;
-import com.dansuse.bakingapp.di.module.ActivityBuilder;
 import com.dansuse.bakingapp.di.module.ApplicationModule;
 import com.dansuse.bakingapp.di.module.NetModule;
 import com.dansuse.bakingapp.di.module.RecipesRepositoryModule;
-import com.dansuse.bakingapp.di.module.TestModule;
 
 import javax.inject.Singleton;
 
-import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
+import dagger.android.AndroidInjector;
 
 /**
  * Created by Daniel on 20/08/2017.
  */
 @Singleton
-@Component(modules = {NetModule.class,
+@Component(modules = {
+        NetModule.class,
         ApplicationModule.class,
-        ActivityBuilder.class,
-        AndroidSupportInjectionModule.class,
         RecipesRepositoryModule.class
-//        TestModule.class
 })
-public interface AppComponent  {
+public interface AppComponent extends AndroidInjector<BakingApplication> {
+    //kalau interface cuma bisa extends sesama interface
+    //DUGAAN, kalau class harusnya juga hanya bisa extends sesama class, dalam artian tidak bisa extends interface.
     @Component.Builder
-    interface Builder {
-        @BindsInstance
-        Builder application(Application application);
-
-        AppComponent build();//ini wajib ditambahkan pada suatu component
-        //nanti pada subcomponent tidak perlu ditambahkan method build lagi karena sudah inherit dari sini
+    abstract class Builder extends AndroidInjector.Builder<BakingApplication> {
     }
-    //ini untuk inject DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
-    void inject(BakingApplication app);
 }

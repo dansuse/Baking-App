@@ -1,7 +1,6 @@
 package com.dansuse.bakingapp.recipes;
 
 import com.dansuse.bakingapp.data.Recipe;
-import com.dansuse.bakingapp.data.source.RecipesDataSource;
 import com.dansuse.bakingapp.data.source.RecipesRepository;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
