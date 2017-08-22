@@ -23,8 +23,9 @@ import dagger.Provides;
  */
 @Module
 public abstract class BaseActivityModule {
+    //line 27 below, this is package-private field
     static final String ACTIVITY_FRAGMENT_MANAGER = "BaseActivityModule.activityFragmentManager";
-    static final String ACTIVITY_CONTEXT = "BaseActivityModule.activityContext";
+    public static final String ACTIVITY_CONTEXT = "BaseActivityModule.activityContext";
 
     @Binds
     @Named(ACTIVITY_CONTEXT)

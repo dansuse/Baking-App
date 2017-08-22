@@ -1,7 +1,5 @@
 package com.dansuse.bakingapp.data;
 
-import java.util.List;
-
 /**
  * Created by LENOVO on 20/08/2017.
  */

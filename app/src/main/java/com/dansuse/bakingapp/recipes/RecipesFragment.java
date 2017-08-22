@@ -1,6 +1,5 @@
 package com.dansuse.bakingapp.recipes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,26 +8,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dansuse.bakingapp.R;
-import com.dansuse.bakingapp.common.BaseFragment;
-
-import javax.inject.Inject;
+import com.dansuse.bakingapp.common.view.BaseViewFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RecipesFragment extends BaseFragment implements RecipesContract.View {
+public class RecipesFragment extends BaseViewFragment<RecipesContract.Presenter> implements RecipesContract.View {
 
     @BindView(R.id.tv_text)
     TextView mTextView;
 
     @OnClick(R.id.btn_klik_me)
     public void setKlikMeButton(Button button){
-        mRecipesPresenter.klikBtn();
+        presenter.klikBtn();
     }
 
-    @Inject
-    RecipesContract.Presenter mRecipesPresenter;
+//    @Inject
+//    RecipesContract.Presenter mRecipesPresenter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +67,6 @@ public class RecipesFragment extends BaseFragment implements RecipesContract.Vie
     @Override
     public void onStop() {
         super.onStop();
-        mRecipesPresenter.unsubscribe();
+        presenter.unsubscribe();
     }
 }

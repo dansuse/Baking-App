@@ -1,9 +1,11 @@
-package com.dansuse.bakingapp.common;
+package com.dansuse.bakingapp.common.view;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
+import com.dansuse.bakingapp.common.BaseActivityModule;
 
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -1,7 +1,5 @@
 package com.dansuse.bakingapp.data.source;
 
-import android.support.annotation.NonNull;
-
 import com.dansuse.bakingapp.data.Recipe;
 
 import java.util.List;

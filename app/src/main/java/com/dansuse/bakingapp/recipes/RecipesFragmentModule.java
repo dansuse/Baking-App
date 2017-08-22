@@ -1,7 +1,5 @@
 package com.dansuse.bakingapp.recipes;
 
-import android.support.v4.app.Fragment;
-
 import com.dansuse.bakingapp.di.FragmentScoped;
 
 import dagger.Binds;

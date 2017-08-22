@@ -1,5 +1,9 @@
 package com.dansuse.bakingapp.recipes;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.dansuse.bakingapp.common.presenter.BasePresenter;
 import com.dansuse.bakingapp.data.Recipe;
 import com.dansuse.bakingapp.data.source.RecipesRepository;
 
@@ -14,18 +18,20 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by LENOVO on 20/08/2017.
+ * Created by Daniel on 20/08/2017.
  */
 
-public class RecipesPresenter implements RecipesContract.Presenter{
-    RecipesContract.View mView;
+public class RecipesPresenter extends BasePresenter<RecipesContract.View> implements RecipesContract.Presenter{
     RecipesRepository mRecipesRepository;
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Inject
     public RecipesPresenter(RecipesContract.View view, RecipesRepository recipesRepository) {
-        mView = view;
+        //untuk constructor di abstract class BasePresenter
+        //bisa dipenuhi dengan pemanggilan super(view).
+        //jika mau lihat errornya coba komen pemanggilan super dibawah
+        super(view);
         mRecipesRepository = recipesRepository;
     }
 
@@ -46,11 +52,35 @@ public class RecipesPresenter implements RecipesContract.Presenter{
                     }
                 }
                 ));
-
     }
 
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
+    }
+
+    @Override
+    public void onStart(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+    }
+
+    @Override
+    public void onEnd() {
+
     }
 }
