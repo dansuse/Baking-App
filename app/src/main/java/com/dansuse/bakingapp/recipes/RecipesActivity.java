@@ -11,6 +11,8 @@ public class RecipesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
-        addFragment(R.id.recipes_fragment_container, RecipesFragment.newInstance());
+        if(savedInstanceState == null){
+            addFragment(R.id.recipes_fragment_container, RecipesFragment.newInstance());
+        }
     }
 }
