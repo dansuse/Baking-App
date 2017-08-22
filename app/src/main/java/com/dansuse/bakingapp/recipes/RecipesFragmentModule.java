@@ -1,9 +1,15 @@
 package com.dansuse.bakingapp.recipes;
 
+import android.content.Context;
+
+import com.dansuse.bakingapp.common.BaseActivityModule;
 import com.dansuse.bakingapp.di.FragmentScoped;
+
+import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by LENOVO on 21/08/2017.
@@ -25,4 +31,10 @@ public abstract class RecipesFragmentModule {
     @Binds
     @FragmentScoped
     abstract RecipesContract.View provideView(RecipesFragment recipesFragment);
+
+    @Provides
+    @FragmentScoped
+    static RecipeCardAdapter provideRecipeCardAdapter(@Named(BaseActivityModule.ACTIVITY_CONTEXT) Context context){
+        return new RecipeCardAdapter(context);
+    }
 }

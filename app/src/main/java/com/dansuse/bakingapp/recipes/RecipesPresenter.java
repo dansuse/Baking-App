@@ -11,11 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Daniel on 20/08/2017.
@@ -36,32 +34,51 @@ public class RecipesPresenter extends BasePresenter<RecipesContract.View> implem
     }
 
     @Override
-    public void klikBtn() {
-        mCompositeDisposable.add(mRecipesRepository.getRecipes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<List<Recipe>>(){
-                    @Override
-                    public void onSuccess(@NonNull List<Recipe> recipes) {
-                        mView.showText(String.valueOf(recipes.get(3).getIngredients().get(0).getIngredient()));
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-                }
-                ));
-    }
-
-    @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
     }
 
     @Override
     public void onStart(@Nullable Bundle savedInstanceState) {
+        //the reason why below code is commented !!
+        //because, dengan selalu menjalankan query data ke repository di background thread,
+        //lalu mengembalikan hasil di AndroidSchedulers.mainThread(),
+        //android tidak bisa mempertahankan posisi scroll secara otomatis dari recycler view pada saat terjadi orientation changes.
+        //hal ini dikarenakan .observeOn(AndroidSchedulers.mainThread()) mengandung arti
+        //bahwa code yang ada di observer : public void onSuccess(@NonNull List<Recipe> recipes) dan onError()
+        //akan di queue di main thread (tidak akan langsung dieksekusi)
+        //padahal untuk mempertahankan scroll, data harus secepatnya dimasukkan ke adapter recycler view
+        //maksimal sebelum method onResume() selesai dieksekusi
 
+//        mCompositeDisposable.add(mRecipesRepository.getRecipes()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<List<Recipe>>(){
+//                                   @Override
+//                                   public void onSuccess(@NonNull List<Recipe> recipes) {
+//                                       mView.showRecyclerViewWithData(recipes);
+//                                   }
+//
+//                                   @Override
+//                                   public void onError(@NonNull Throwable e) {
+//
+//                                   }
+//                               }
+//                ));
+
+        mCompositeDisposable.add(mRecipesRepository.getRecipes()
+                .subscribeWith(new DisposableSingleObserver<List<Recipe>>(){
+                                   @Override
+                                   public void onSuccess(@NonNull List<Recipe> recipes) {
+                                       mView.showRecyclerViewWithData(recipes);
+                                   }
+
+                                   @Override
+                                   public void onError(@NonNull Throwable e) {
+
+                                   }
+                               }
+                ));
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.dansuse.bakingapp.common.BaseActivityModule;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
@@ -37,13 +36,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Nullable
-    private Unbinder viewUnbinder;
+    protected Unbinder viewUnbinder;
 
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        viewUnbinder = ButterKnife.bind(this, getView());
     }
 
     @Override

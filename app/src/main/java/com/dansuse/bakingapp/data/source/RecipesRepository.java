@@ -6,14 +6,15 @@ import com.google.common.collect.Lists;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Daniel on 20/08/2017.
@@ -54,12 +55,14 @@ public class RecipesRepository implements RecipesDataSource {
             //return Single.just(Lists.newArrayList(mCachedRecipes.values()));
 
             //oleh karena itu diakali seperti di bawah ini
-            return Single.fromCallable(new Callable<List<Recipe>>() {
-                @Override
-                public List<Recipe> call() throws Exception {
-                    return getRecipeList();
-                }
-            });
+//            return Single.fromCallable(new Callable<List<Recipe>>() {
+//                @Override
+//                public List<Recipe> call() throws Exception {
+//                    return getRecipeList();
+//                }
+//            });
+            //coba lihat penjelasan di RecipesPresenter.java tentang mengapa return statement diatas di comment
+            return Single.just(getRecipeList());
             //jangan memanggil Single.just, karena dengan Single.just kita tidak akan memiliki kesempatan untuk menentukan
             //suatu operasi akan berjalan di thread mana
             //return Single.just(getRecipeList());
@@ -67,7 +70,7 @@ public class RecipesRepository implements RecipesDataSource {
             mCachedRecipes = new LinkedHashMap<>();
         }
         Single<List<Recipe>> remoteRecipes = getAndSaveRemoteRecipes();
-        return remoteRecipes;
+        return remoteRecipes.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     private Single<List<Recipe>> getAndCacheLocalRecipes() {
@@ -106,6 +109,17 @@ public class RecipesRepository implements RecipesDataSource {
                 for(Recipe recipe : recipes){
                     mCachedRecipes.put(recipe.getId(), recipe);
                 }
+                //===untuk ngetes apakah aplikasi sudah mempertahankan posisi scroll===
+//                for(Recipe recipe : recipes){
+//                    mCachedRecipes.put(recipe.getId() + 4, recipe);
+//                }
+//                for(Recipe recipe : recipes){
+//                    mCachedRecipes.put(recipe.getId() + 8, recipe);
+//                }
+//                List<Recipe>temp = Lists.newArrayList(recipes);
+//                recipes.addAll(temp);
+//                recipes.addAll(temp);
+                //============
                 mCacheIsDirty = false;
                 return recipes;
             }
