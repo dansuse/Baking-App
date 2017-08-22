@@ -51,4 +51,5 @@ ext {
     sqlbriteVersion = '2.0.0'
     retrofitVersion = '2.3.0'
     gsonVersion = '2.8.1'
+    picassoVersion = '2.5.2'
 }
