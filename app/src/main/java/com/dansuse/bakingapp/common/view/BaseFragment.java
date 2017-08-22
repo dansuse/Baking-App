@@ -1,15 +1,19 @@
 package com.dansuse.bakingapp.common;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
 /**
- * Created by LENOVO on 21/08/2017.
+ * Created by Daniel on 21/08/2017.
  */
 
 public abstract class BaseFragment extends Fragment {
@@ -28,5 +32,23 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
+    }
+
+    @Nullable
+    private Unbinder viewUnbinder;
+
+    @SuppressWarnings("ConstantConditions")
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        viewUnbinder = ButterKnife.bind(this, getView());
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(viewUnbinder != null){
+            viewUnbinder.unbind();
+        }
+        super.onDestroyView();
     }
 }
