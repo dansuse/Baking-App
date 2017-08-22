@@ -28,6 +28,18 @@ public class Recipe {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Integer getServings() {
+        return servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
@@ -35,4 +47,5 @@ public class Recipe {
     public List<Step> getSteps() {
         return steps;
     }
+
 }
