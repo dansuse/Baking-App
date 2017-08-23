@@ -1,13 +1,19 @@
 package com.dansuse.bakingapp.recipes;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dansuse.bakingapp.common.BaseActivityModule;
 import com.dansuse.bakingapp.di.ActivityScoped;
 import com.dansuse.bakingapp.di.FragmentScoped;
 
+import javax.inject.Named;
+
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 /**
@@ -54,6 +60,11 @@ public abstract class RecipesModule {
     //dimana view dan presenter berada pada module activity dan bukan pada module untuk fragment
 //======================================================================
 
+    @ActivityScoped
+    @Provides
+    static ConnectivityManager provideConnectivityManager(@Named(BaseActivityModule.ACTIVITY_CONTEXT)Context context){
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    }
 
     @FragmentScoped
     @ContributesAndroidInjector(modules = RecipesFragmentModule.class)

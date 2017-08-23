@@ -32,5 +32,4 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
     public Single<List<Recipe>> getRecipes() {
         return mBakingApi.getRecipes();
     }
-
 }
