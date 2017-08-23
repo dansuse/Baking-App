@@ -8,14 +8,21 @@ import android.support.annotation.Nullable;
  */
 
 public interface Presenter {
+
     /**
-     * Starts the presentation. This should be called in the view's (Activity or Fragment)
+     * Restore data from savedInstanceState. This should be called in the view's (Activity or Fragment)
      * onCreate() or onViewStatedRestored() method respectively.
      *
      * @param savedInstanceState the saved instance state that contains state saved in
      *                           {@link #onSaveInstanceState(Bundle)}
      */
-    void onStart(@Nullable Bundle savedInstanceState);
+    void onViewStateRestored(@Nullable Bundle savedInstanceState);
+
+    /**
+     * Starts the presentation. This should be called in the view's (Activity or Fragment)
+     * onStart().
+     */
+    void onStart();
 
     /**
      * Resumes the presentation. This should be called in the view's (Activity or Fragment)

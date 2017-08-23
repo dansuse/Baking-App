@@ -20,7 +20,13 @@ public abstract class BaseViewFragment<T extends Presenter> extends BaseFragment
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        presenter.onStart(savedInstanceState);
+        presenter.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.onStart();
     }
 
     @Override

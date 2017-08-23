@@ -84,6 +84,12 @@ public class RecipesFragment extends BaseViewFragment<RecipesContract.Presenter>
         mRecipeCardRecyclerView.setAdapter(mRecipeCardAdapter);
     }
 
+    //jika layar handphone mati, dan aku menekan tombol Run 'app' di android studio
+    //maka lifecycle akan berlangsung sebagai berikut :
+    //onViewStateRestored -> onStart -> onResume -> onPause -> onStop
+    //dan ketika layar handphone dinyalakan
+    //onStart -> onResume
+
     @Override
     public void onStop() {
         super.onStop();

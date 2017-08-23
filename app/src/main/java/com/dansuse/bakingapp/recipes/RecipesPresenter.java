@@ -39,7 +39,11 @@ public class RecipesPresenter extends BasePresenter<RecipesContract.View> implem
     }
 
     @Override
-    public void onStart(@Nullable Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onStart() {
         //the reason why below code is commented !!
         //because, dengan selalu menjalankan query data ke repository di background thread,
         //lalu mengembalikan hasil di AndroidSchedulers.mainThread(),
