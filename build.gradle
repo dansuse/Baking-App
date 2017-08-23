@@ -52,4 +52,5 @@ ext {
     retrofitVersion = '2.3.0'
     gsonVersion = '2.8.1'
     picassoVersion = '2.5.2'
+    exoplayerVersion = 'r2.5.1'
 }
