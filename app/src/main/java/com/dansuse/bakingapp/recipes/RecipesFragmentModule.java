@@ -32,9 +32,14 @@ public abstract class RecipesFragmentModule {
     @FragmentScoped
     abstract RecipesContract.View provideView(RecipesFragment recipesFragment);
 
+    @Binds
+    @FragmentScoped
+    abstract RecipeCardClickListener bindRecipeCardClickListener(RecipesFragment recipesFragment);
+
     @Provides
     @FragmentScoped
-    static RecipeCardAdapter provideRecipeCardAdapter(@Named(BaseActivityModule.ACTIVITY_CONTEXT) Context context){
-        return new RecipeCardAdapter(context);
+    static RecipeCardAdapter provideRecipeCardAdapter(@Named(BaseActivityModule.ACTIVITY_CONTEXT) Context context,
+                                                      RecipeCardClickListener recipeCardClickListener){
+        return new RecipeCardAdapter(context, recipeCardClickListener);
     }
 }

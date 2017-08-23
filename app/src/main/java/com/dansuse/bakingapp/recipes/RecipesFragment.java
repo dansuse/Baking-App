@@ -1,5 +1,6 @@
 package com.dansuse.bakingapp.recipes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -13,8 +14,12 @@ import android.widget.TextView;
 
 import com.dansuse.bakingapp.R;
 import com.dansuse.bakingapp.common.view.BaseViewFragment;
+import com.dansuse.bakingapp.data.Ingredient;
 import com.dansuse.bakingapp.data.Recipe;
+import com.dansuse.bakingapp.data.Step;
+import com.dansuse.bakingapp.recipedetail.RecipeDetailActivity;
 import com.dansuse.bakingapp.ui.SpacesItemDecoration;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -23,7 +28,16 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipesFragment extends BaseViewFragment<RecipesContract.Presenter> implements RecipesContract.View {
+public class RecipesFragment extends BaseViewFragment<RecipesContract.Presenter>
+        implements RecipesContract.View, RecipeCardClickListener {
+
+    @Override
+    public void onRecipeCardClick(List<Ingredient> ingredientList, List<Step> stepList) {
+        Intent intent = new Intent(activityContext, RecipeDetailActivity.class);
+        intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_INGREDIENT, Lists.newArrayList(ingredientList));
+        intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_STEP, Lists.newArrayList(stepList));
+        startActivity(intent);
+    }
 
     @BindView(R.id.rv_recipe_card)
     RecyclerView mRecipeCardRecyclerView;

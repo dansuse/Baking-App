@@ -25,10 +25,12 @@ import butterknife.ButterKnife;
 
 public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.RecipeCardViewHolder>{
     private final Context mContext;
+    private final RecipeCardClickListener mRecipeCardClickListener;
     private List<Recipe> mRecipeList;
 
-    public RecipeCardAdapter(Context context) {
+    public RecipeCardAdapter(Context context, RecipeCardClickListener recipeCardClickListener) {
         this.mContext = context;
+        mRecipeCardClickListener = recipeCardClickListener;
     }
 
     @Override
@@ -56,6 +58,8 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
     }
 
     class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        Recipe recipe;
+
         @BindView(R.id.tv_recipe_name)
         TextView recipeNameTextView;
 
@@ -71,6 +75,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
             itemView.setOnClickListener(this);
         }
         void bind(Recipe recipe){
+            this.recipe = recipe;
             if(recipe.getName() != null && !TextUtils.isEmpty(recipe.getName())){
                 recipeNameTextView.setText(recipe.getName());
             }
@@ -85,6 +90,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
         }
         @Override
         public void onClick(View view) {
+            mRecipeCardClickListener.onRecipeCardClick(recipe.getIngredients(), recipe.getSteps());
         }
     }
 }

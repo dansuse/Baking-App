@@ -2,7 +2,6 @@ package com.dansuse.bakingapp.recipes;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dansuse.bakingapp.common.BaseActivityModule;

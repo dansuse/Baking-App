@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.dansuse.bakingapp.recipedetail.RecipeDetailFragment">
+    <TextView
+        android:id="@+id/tv_recipe_detail_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_available"
+        android:textSize="@dimen/text_sz_extra_large"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recipe_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/rv_grid_spacing"
+        android:clipToPadding="false"/>
+</FrameLayout>
