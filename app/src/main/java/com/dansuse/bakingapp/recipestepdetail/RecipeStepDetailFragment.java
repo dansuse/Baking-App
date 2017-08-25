@@ -89,6 +89,7 @@ public class RecipeStepDetailFragment extends BaseViewFragment<RecipeStepDetailC
         super.onCreate(savedInstanceState);
         if (getArguments() != null && getArguments().containsKey(ARG_RECIPE_STEP)) {
             mStep = getArguments().getParcelable(ARG_RECIPE_STEP);
+            //Log.d("tes123", mStep.getShortDescription() + "| " + String.valueOf(presenter == null) + " |onCreate");
             presenter.setRecipeStep(mStep);
             presenter.setSDKInt(Util.SDK_INT);
         }
@@ -134,12 +135,20 @@ public class RecipeStepDetailFragment extends BaseViewFragment<RecipeStepDetailC
 
     @Override
     public void onPause() {
-        //presenter.setExoPlayerPosition(mExoPlayer.getCurrentPosition());
+        //pengecekan dibawah karena kita menggunakan viewpager di activity,
+        // dan viewpager akan menginisiasi fragment di kanan dan kiri dari fragment yang aktif.
+        // Dimana fragment tetangga bisa jadi memiliki player yang sudah di init ataupun belum (blm init shg bernilai null).
+        //oleh karena itu karena ketidakpastian ini, alagkah baiknya memberi pengecekan.
+        if(presenter != null && mExoPlayer != null){
+            presenter.setExoPlayerPosition(mExoPlayer.getCurrentPosition());
+        }
+        //Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |onPause");
         super.onPause();
     }
 
     @Override
     public void initializePlayer(Uri mediaUri) {
+        Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |initializePlayer");
         mPlayerView.requestFocus();
         if (mExoPlayer == null) {
             // 1. Create a default TrackSelector
@@ -167,7 +176,7 @@ public class RecipeStepDetailFragment extends BaseViewFragment<RecipeStepDetailC
             mExoPlayer.prepare(videoSource);
             mExoPlayer.setPlayWhenReady(true);
             if(mExoPlayerPosition != -1L){
-                //mExoPlayer.seekTo(mExoPlayerPosition);
+                mExoPlayer.seekTo(mExoPlayerPosition);
             }
         }
     }
@@ -175,6 +184,7 @@ public class RecipeStepDetailFragment extends BaseViewFragment<RecipeStepDetailC
     @Override
     public void setExoPlayerPosition(long position) {
         mExoPlayerPosition = position;
+        Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |setExoPlayerPosition");
     }
 
     @Override

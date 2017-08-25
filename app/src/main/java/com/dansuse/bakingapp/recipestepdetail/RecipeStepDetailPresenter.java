@@ -21,7 +21,7 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     private Step mStep;
     private int mSDKInt;
-    private long mExoPlayerPosition;
+    private long mExoPlayerPosition = -1L;
 
     @Inject
     public RecipeStepDetailPresenter(RecipeStepDetailContract.View view) {
@@ -30,9 +30,12 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState != null && savedInstanceState.containsKey(RecipeStepDetailContract.SAVED_EXO_POSITION)){
-            mExoPlayerPosition = savedInstanceState.getLong(RecipeStepDetailContract.SAVED_EXO_POSITION);
-            //mView.setExoPlayerPosition(mExoPlayerPosition);
+        if (mStep != null && savedInstanceState != null && savedInstanceState.containsKey(RecipeStepDetailContract.SAVED_EXO_POSITION + String.valueOf(mStep.getId()))) {
+            Log.d("tes123", "Presenter| " + String.valueOf(mStep.getShortDescription()) + " |onViewStateRestored");
+            String key = RecipeStepDetailContract.SAVED_EXO_POSITION + String.valueOf(mStep.getId());
+            mExoPlayerPosition = savedInstanceState.getLong(key);
+            mView.setExoPlayerPosition(mExoPlayerPosition);
+            mExoPlayerPosition = -1L;
         }
     }
 
@@ -50,11 +53,11 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
         }
     }
 
-    private void checkVideoURLThenInitExoPlayer(){
-        if(mStep.getVideoURL() != null && !mStep.getVideoURL().equals("")){
+    private void checkVideoURLThenInitExoPlayer() {
+        if (mStep.getVideoURL() != null && !mStep.getVideoURL().equals("")) {
             mView.showExoPlayer();
             mView.initializePlayer(Uri.parse(mStep.getVideoURL()));
-        }else{
+        } else {
             mView.hideExoPlayer();
         }
     }
@@ -75,7 +78,11 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        //outState.putLong(RecipeStepDetailContract.SAVED_EXO_POSITION, mExoPlayerPosition);
+        if (mStep != null && mExoPlayerPosition != -1L) {
+            Log.d("tes123", "Presenter| " + String.valueOf(mStep.getShortDescription()) + " |onSaveInstanceState");
+            String key = RecipeStepDetailContract.SAVED_EXO_POSITION + String.valueOf(mStep.getId());
+            outState.putLong(key, mExoPlayerPosition);
+        }
     }
 
     @Override
@@ -95,6 +102,7 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     @Override
     public void setExoPlayerPosition(long position) {
+        Log.d("tes123", "Presenter| " + String.valueOf(mStep.getShortDescription()) + " |setExoPlayerPosition");
         mExoPlayerPosition = position;
     }
 }

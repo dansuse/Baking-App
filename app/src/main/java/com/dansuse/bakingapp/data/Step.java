@@ -22,6 +22,10 @@ public class Step implements Parcelable{
         this.thumbnailURL = thumbnailURL;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getShortDescription() {
         return shortDescription;
     }

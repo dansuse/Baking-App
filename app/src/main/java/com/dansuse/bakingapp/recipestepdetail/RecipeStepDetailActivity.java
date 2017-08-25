@@ -64,6 +64,7 @@ public class RecipeStepDetailActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Log.d("tes123", "getItem()" + String.valueOf(position));
             return RecipeStepDetailFragment.newInstance(mStepList.get(position));
         }
 
