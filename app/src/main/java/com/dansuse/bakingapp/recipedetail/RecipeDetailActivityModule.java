@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.dansuse.bakingapp.common.BaseActivityModule;
 import com.dansuse.bakingapp.di.ActivityScoped;
 import com.dansuse.bakingapp.di.FragmentScoped;
+import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailFragment;
+import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailFragmentModule;
 
 import dagger.Binds;
 import dagger.Module;
@@ -23,4 +25,8 @@ public abstract class RecipeDetailActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector(modules = RecipeDetailFragmentModule.class)
     abstract RecipeDetailFragment recipeDetailFragmentInjector();
+
+    @FragmentScoped
+    @ContributesAndroidInjector(modules = RecipeStepDetailFragmentModule.class)
+    abstract RecipeStepDetailFragment twoPaneRecipeStepDetailFragmentInjector();
 }

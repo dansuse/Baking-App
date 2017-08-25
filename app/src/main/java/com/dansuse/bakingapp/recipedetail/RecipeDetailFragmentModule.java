@@ -20,9 +20,18 @@ public abstract class RecipeDetailFragmentModule {
     @FragmentScoped
     abstract RecipeDetailContract.View provideView(RecipeDetailFragment recipeDetailFragment);
 
+    @Binds
+    @FragmentScoped
+    abstract RecipeDetailClickListener provideRecipeDetailClickListener(RecipeDetailFragment recipeDetailFragment);
+
     @Provides
     @FragmentScoped
-    static RecipeDetailAdapter provideRecipeDetailAdapter(){
-        return new RecipeDetailAdapter();
+    static RecipeDetailAdapter provideRecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener){
+        return new RecipeDetailAdapter(recipeDetailClickListener);
     }
+
+    @Binds
+    @FragmentScoped
+    abstract RecipeDetailActivityFragmentInteraction provideRecipeDetailInteraction(RecipeDetailActivity recipeDetailActivity);
+
 }

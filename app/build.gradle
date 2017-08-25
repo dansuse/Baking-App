@@ -38,6 +38,8 @@ dependencies {
 
     compile "com.google.android.exoplayer:exoplayer:$rootProject.exoplayerVersion"
 
+    compile 'me.relex:circleindicator:1.2.2@aar'
+
     compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"

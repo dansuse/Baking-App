@@ -9,6 +9,8 @@ import com.dansuse.bakingapp.recipedetail.RecipeDetailActivity;
 import com.dansuse.bakingapp.recipedetail.RecipeDetailActivityModule;
 import com.dansuse.bakingapp.recipes.RecipesActivity;
 import com.dansuse.bakingapp.recipes.RecipesModule;
+import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailActivity;
+import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailActivityModule;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -53,4 +55,8 @@ public abstract class ApplicationModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = RecipeDetailActivityModule.class)
     abstract RecipeDetailActivity recipeDetailActivityInjector();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = RecipeStepDetailActivityModule.class)
+    abstract RecipeStepDetailActivity recipeStepDetailActivityInjector();
 }

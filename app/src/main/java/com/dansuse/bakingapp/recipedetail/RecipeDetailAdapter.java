@@ -27,6 +27,12 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Step> mStepList;
     private List<Ingredient>mIngredientList;
 
+    private final RecipeDetailClickListener mRecipeDetailClickListener;
+
+    public RecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener) {
+        mRecipeDetailClickListener = recipeDetailClickListener;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if(position == 0){
@@ -103,7 +109,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         @Override
         public void onClick(View view) {
-
+            mRecipeDetailClickListener.onRecipeDetailClick(this.getAdapterPosition() - 1);
         }
     }
     class RecipeIngredientViewHolder extends RecyclerView.ViewHolder{

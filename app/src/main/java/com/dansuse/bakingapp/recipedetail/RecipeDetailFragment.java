@@ -1,6 +1,8 @@
 package com.dansuse.bakingapp.recipedetail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import com.dansuse.bakingapp.R;
 import com.dansuse.bakingapp.common.view.BaseViewFragment;
 import com.dansuse.bakingapp.data.Ingredient;
 import com.dansuse.bakingapp.data.Step;
+import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailActivity;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -22,7 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeDetailFragment extends BaseViewFragment<RecipeDetailContract.Presenter>
-        implements RecipeDetailContract.View {
+        implements RecipeDetailContract.View, RecipeDetailClickListener {
+
+    @Override
+    public void onRecipeDetailClick(int selectedIndex) {
+        mRecipeDetailActivityFragmentInteraction.onRecipeDetailClickCallActivity(selectedIndex);
+    }
 
     @BindView(R.id.tv_recipe_detail_no_data)
     TextView mNoDataTextView;
@@ -32,6 +40,9 @@ public class RecipeDetailFragment extends BaseViewFragment<RecipeDetailContract.
 
     @Inject
     RecipeDetailAdapter mRecipeDetailAdapter;
+
+    @Inject
+    RecipeDetailActivityFragmentInteraction mRecipeDetailActivityFragmentInteraction;
 
     private List<Ingredient>mIngredientList;
     private List<Step>mStepList;
