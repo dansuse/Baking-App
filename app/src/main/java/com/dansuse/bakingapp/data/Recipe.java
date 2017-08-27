@@ -1,12 +1,16 @@
 package com.dansuse.bakingapp.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by LENOVO on 20/08/2017.
  */
 
-public class Recipe {
+public class Recipe implements Parcelable {
     Integer id;
     String name;
     Integer servings;
@@ -48,4 +52,44 @@ public class Recipe {
         return steps;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeInt(servings);
+        parcel.writeString(image);
+        parcel.writeTypedList(ingredients);
+        parcel.writeTypedList(steps);
+    }
+
+    public Recipe(Parcel in){
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.servings = in.readInt();
+        this.image = in.readString();
+        List<Ingredient>ingredientList = new ArrayList<>();
+        in.readTypedList(ingredientList, Ingredient.CREATOR);
+        this.ingredients = ingredientList;
+
+        List<Step>stepList = new ArrayList<>();
+        in.readTypedList(stepList, Step.CREATOR);
+        this.steps = stepList;
+    }
+
+    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>(){
+        @Override
+        public Recipe createFromParcel(Parcel parcel) {
+            return new Recipe(parcel);
+        }
+
+        @Override
+        public Recipe[] newArray(int i) {
+            return new Recipe[i];
+        }
+    };
 }

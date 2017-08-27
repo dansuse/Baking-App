@@ -1,6 +1,12 @@
 package com.dansuse.bakingapp.recipedetail;
 
+import android.content.Context;
+
+import com.dansuse.bakingapp.common.BaseActivity;
+import com.dansuse.bakingapp.common.BaseActivityModule;
 import com.dansuse.bakingapp.di.FragmentScoped;
+
+import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
@@ -26,8 +32,8 @@ public abstract class RecipeDetailFragmentModule {
 
     @Provides
     @FragmentScoped
-    static RecipeDetailAdapter provideRecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener){
-        return new RecipeDetailAdapter(recipeDetailClickListener);
+    static RecipeDetailAdapter provideRecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener, @Named(BaseActivityModule.ACTIVITY_CONTEXT) Context context){
+        return new RecipeDetailAdapter(recipeDetailClickListener, context);
     }
 
     @Binds

@@ -90,7 +90,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
         }
         @Override
         public void onClick(View view) {
-            mRecipeCardClickListener.onRecipeCardClick(recipe.getIngredients(), recipe.getSteps());
+            mRecipeCardClickListener.onRecipeCardClick(recipe);
         }
     }
 }

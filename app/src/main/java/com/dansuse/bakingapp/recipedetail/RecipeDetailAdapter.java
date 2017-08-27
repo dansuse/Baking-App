@@ -1,5 +1,6 @@
 package com.dansuse.bakingapp.recipedetail;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,10 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Ingredient>mIngredientList;
 
     private final RecipeDetailClickListener mRecipeDetailClickListener;
-
-    public RecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener) {
+    private final Context mContext;
+    public RecipeDetailAdapter(RecipeDetailClickListener recipeDetailClickListener, Context context) {
         mRecipeDetailClickListener = recipeDetailClickListener;
+        mContext = context;
     }
 
     @Override
@@ -121,7 +123,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ButterKnife.bind(this, itemView);
         }
         void bind(List<Ingredient> ingredientList){
-            itemRecipeIngredientTextView.setText("Ingredients : ");
+            itemRecipeIngredientTextView.setText(mContext.getString(R.string.ingredients_with_colon));
             for (Ingredient i : ingredientList) {
                 String text = "\n" + i.getIngredient() + " " + String.valueOf(i.getQuantity()) + " " + i.getMeasure();
                 itemRecipeIngredientTextView.append(text);

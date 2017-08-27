@@ -29,7 +29,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AndroidSupportInjectionModule.class})
 public abstract class ApplicationModule {
 
-    static final String APPLICATION_CONTEXT = "ApplicationModule.applicationContext";
+    public static final String APPLICATION_CONTEXT = "ApplicationModule.applicationContext";
 
     @Binds
     @Singleton

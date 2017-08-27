@@ -1,10 +1,9 @@
 package com.dansuse.bakingapp.recipedetail;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.dansuse.bakingapp.R;
 import com.dansuse.bakingapp.common.view.BaseViewFragment;
 import com.dansuse.bakingapp.data.Ingredient;
 import com.dansuse.bakingapp.data.Step;
-import com.dansuse.bakingapp.recipestepdetail.RecipeStepDetailActivity;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -68,6 +66,7 @@ public class RecipeDetailFragment extends BaseViewFragment<RecipeDetailContract.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("tes123 frag", String.valueOf(getArguments() != null));
         if (getArguments() != null && getArguments().containsKey(ARG_LIST_INGREDIENT) && getArguments().containsKey(ARG_LIST_STEP)) {
             mIngredientList = getArguments().getParcelableArrayList(ARG_LIST_INGREDIENT);
             mStepList = getArguments().getParcelableArrayList(ARG_LIST_STEP);

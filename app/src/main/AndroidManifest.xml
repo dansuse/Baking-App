@@ -22,9 +22,25 @@
         </activity>
         <activity android:name=".recipedetail.RecipeDetailActivity">
         </activity>
-        <activity
-            android:name=".recipestepdetail.RecipeStepDetailActivity">
+        <activity android:name=".recipestepdetail.RecipeStepDetailActivity">
         </activity>
+
+        <receiver android:name=".RecipeWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_provider_info"/>
+        </receiver>
+        <provider
+            android:authorities="com.dansuse.bakingapp"
+            android:name=".data.source.local.RecipeContentProvider"
+            android:exported="true"/>
+        <service android:name=".RecipeWidgetService" />
+        <service android:name=".ListWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

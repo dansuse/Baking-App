@@ -14,12 +14,9 @@ import android.widget.TextView;
 
 import com.dansuse.bakingapp.R;
 import com.dansuse.bakingapp.common.view.BaseViewFragment;
-import com.dansuse.bakingapp.data.Ingredient;
 import com.dansuse.bakingapp.data.Recipe;
-import com.dansuse.bakingapp.data.Step;
 import com.dansuse.bakingapp.recipedetail.RecipeDetailActivity;
 import com.dansuse.bakingapp.ui.SpacesItemDecoration;
-import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -32,10 +29,11 @@ public class RecipesFragment extends BaseViewFragment<RecipesContract.Presenter>
         implements RecipesContract.View, RecipeCardClickListener {
 
     @Override
-    public void onRecipeCardClick(List<Ingredient> ingredientList, List<Step> stepList) {
+    public void onRecipeCardClick(Recipe recipe) {
         Intent intent = new Intent(activityContext, RecipeDetailActivity.class);
-        intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_INGREDIENT, Lists.newArrayList(ingredientList));
-        intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_STEP, Lists.newArrayList(stepList));
+        //intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_INGREDIENT, Lists.newArrayList(ingredientList));
+        //intent.putParcelableArrayListExtra(RecipeDetailActivity.EXTRA_LIST_STEP, Lists.newArrayList(stepList));
+        intent.putExtra(RecipeDetailActivity.EXTRA_RECIPE, recipe);
         startActivity(intent);
     }
 

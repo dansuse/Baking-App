@@ -7,8 +7,6 @@ import android.util.Log;
 
 import com.dansuse.bakingapp.common.presenter.BasePresenter;
 import com.dansuse.bakingapp.data.Step;
-import com.dansuse.bakingapp.recipedetail.RecipeDetailContract;
-import com.google.android.exoplayer2.util.Util;
 
 import javax.inject.Inject;
 

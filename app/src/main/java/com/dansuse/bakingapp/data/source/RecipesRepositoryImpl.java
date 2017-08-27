@@ -1,6 +1,9 @@
 package com.dansuse.bakingapp.data.source;
 
+import android.content.Context;
+
 import com.dansuse.bakingapp.data.Recipe;
+import com.dansuse.bakingapp.di.module.ApplicationModule;
 import com.google.common.collect.Lists;
 
 import java.util.LinkedHashMap;
@@ -8,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
@@ -30,6 +34,8 @@ public class RecipesRepositoryImpl implements RecipesRepository {
     Map<Integer, Recipe> mCachedRecipes;
     boolean mCacheIsDirty = true;
 
+    Context mContext;
+
     //karena suatu dependency bisa dibuat dari dependency lainnya,
     //seperti contoh dibawah dimana RecipesRepositoryImpl bisa dibuat dari
     //LocalDataSource dan RemoteDataSource,
@@ -38,9 +44,11 @@ public class RecipesRepositoryImpl implements RecipesRepository {
     //NB : hanya berlaku untuk injeksi constructor
     @Inject
     RecipesRepositoryImpl(@Remote RecipesDataSource recipesRemoteDataSource,
-                          @Local RecipesDataSource recipesLocalDataSource) {
+                          @Local RecipesDataSource recipesLocalDataSource,
+                          @Named(ApplicationModule.APPLICATION_CONTEXT) Context context) {
         mRecipesRemoteDataSource = recipesRemoteDataSource;
         mRecipesLocalDataSource = recipesLocalDataSource;
+        mContext = context;
         mCachedRecipes = new LinkedHashMap<>();
     }
 
@@ -109,15 +117,15 @@ public class RecipesRepositoryImpl implements RecipesRepository {
                     mCachedRecipes.put(recipe.getId(), recipe);
                 }
                 //===untuk ngetes apakah aplikasi sudah mempertahankan posisi scroll===
-                for(Recipe recipe : recipes){
-                    mCachedRecipes.put(recipe.getId() + 4, recipe);
-                }
-                for(Recipe recipe : recipes){
-                    mCachedRecipes.put(recipe.getId() + 8, recipe);
-                }
-                List<Recipe>temp = Lists.newArrayList(recipes);
-                recipes.addAll(temp);
-                recipes.addAll(temp);
+//                for(Recipe recipe : recipes){
+//                    mCachedRecipes.put(recipe.getId() + 4, recipe);
+//                }
+//                for(Recipe recipe : recipes){
+//                    mCachedRecipes.put(recipe.getId() + 8, recipe);
+//                }
+//                List<Recipe>temp = Lists.newArrayList(recipes);
+//                recipes.addAll(temp);
+//                recipes.addAll(temp);
                 //============
                 mCacheIsDirty = false;
                 return recipes;

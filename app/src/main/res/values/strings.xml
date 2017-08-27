@@ -6,5 +6,9 @@
     <string name="no_video_available">No Video Available</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">No Favorite Recipe to Display</string>
+    <string name="action_pin_to_widget">Pin to Widget</string>
+    <string name="done">Done</string>
+    <string name="wait">Wait</string>
+    <string name="ingredients_with_colon">Ingredients :</string>
 </resources>
