@@ -59,7 +59,9 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 
     @Override
     public void onDestroy() {
-        mCursor.close();
+        if(mCursor != null){
+            mCursor.close();
+        }
     }
 
     @Override
