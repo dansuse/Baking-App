@@ -5,6 +5,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.dansuse.bakingapp.SimpleIdlingResource;
 import com.dansuse.bakingapp.common.presenter.BasePresenter;
 import com.dansuse.bakingapp.data.Recipe;
 import com.dansuse.bakingapp.data.source.RecipesRepositoryImpl;
@@ -28,15 +29,17 @@ public class RecipesPresenter extends BasePresenter<RecipesContract.View> implem
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     private ConnectivityManager mConnectivityManager;
+    private SimpleIdlingResource mSimpleIdlingResource;
 
     @Inject
-    public RecipesPresenter(RecipesContract.View view, RecipesRepositoryImpl recipesRepositoryImpl, ConnectivityManager connectivityManager) {
+    public RecipesPresenter(RecipesContract.View view, RecipesRepositoryImpl recipesRepositoryImpl, ConnectivityManager connectivityManager, SimpleIdlingResource simpleIdlingResource) {
         //untuk constructor di abstract class BasePresenter
         //bisa dipenuhi dengan pemanggilan super(view).
         //jika mau lihat errornya coba komen pemanggilan super dibawah
         super(view);
         mRecipesRepositoryImpl = recipesRepositoryImpl;
         mConnectivityManager = connectivityManager;
+        mSimpleIdlingResource = simpleIdlingResource;
     }
 
     @Override
@@ -96,6 +99,10 @@ public class RecipesPresenter extends BasePresenter<RecipesContract.View> implem
 //                               }
 //                ));
 
+        if(mSimpleIdlingResource != null){
+            mSimpleIdlingResource.setIdleState(false);
+        }
+
         Single<List<Recipe>> recipeListSingle;
         mView.showProgressIndicator(true);
         if(isOnline()){
@@ -113,11 +120,17 @@ public class RecipesPresenter extends BasePresenter<RecipesContract.View> implem
                                        }else{
                                            mView.showMessageNoDataAvailable();
                                        }
+                                       if(mSimpleIdlingResource != null){
+                                           mSimpleIdlingResource.setIdleState(true);
+                                       }
                                    }
 
                                    @Override
                                    public void onError(@NonNull Throwable e) {
                                        mView.showErrorMessage(e.getMessage());
+                                       if(mSimpleIdlingResource != null){
+                                           mSimpleIdlingResource.setIdleState(true);
+                                       }
                                    }
                                }
                 ));

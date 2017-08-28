@@ -68,6 +68,7 @@ dependencies {
     testCompile "junit:junit:$rootProject.junitVersion"
 
     // Espresso UI Testing
+    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
     //androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"

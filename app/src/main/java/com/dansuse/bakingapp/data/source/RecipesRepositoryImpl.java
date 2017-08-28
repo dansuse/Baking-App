@@ -117,15 +117,15 @@ public class RecipesRepositoryImpl implements RecipesRepository {
                     mCachedRecipes.put(recipe.getId(), recipe);
                 }
                 //===untuk ngetes apakah aplikasi sudah mempertahankan posisi scroll===
-//                for(Recipe recipe : recipes){
-//                    mCachedRecipes.put(recipe.getId() + 4, recipe);
-//                }
-//                for(Recipe recipe : recipes){
-//                    mCachedRecipes.put(recipe.getId() + 8, recipe);
-//                }
-//                List<Recipe>temp = Lists.newArrayList(recipes);
-//                recipes.addAll(temp);
-//                recipes.addAll(temp);
+                for(Recipe recipe : recipes){
+                    mCachedRecipes.put(recipe.getId() + 4, recipe);
+                }
+                for(Recipe recipe : recipes){
+                    mCachedRecipes.put(recipe.getId() + 8, recipe);
+                }
+                List<Recipe>temp = Lists.newArrayList(recipes);
+                recipes.addAll(temp);
+                recipes.addAll(temp);
                 //============
                 mCacheIsDirty = false;
                 return recipes;

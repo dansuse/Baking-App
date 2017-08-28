@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class RecipeDetailActivity extends BaseActivity implements RecipeDetailAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+
         if(findViewById(R.id.recipe_step_detail_frag_container) != null){
             mTwoPane = true;
         }else{
@@ -82,6 +84,7 @@ public class RecipeDetailActivity extends BaseActivity implements RecipeDetailAc
             }
         }
         if(getSupportActionBar() != null && mRecipe != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(mRecipe.getName());
         }
     }
@@ -103,6 +106,10 @@ public class RecipeDetailActivity extends BaseActivity implements RecipeDetailAc
         int id = item.getItemId();
         if(id == R.id.action_pin_to_widget){
             new UpdateFavRecipeInDB().execute();
+            return true;
+        }else if(id == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

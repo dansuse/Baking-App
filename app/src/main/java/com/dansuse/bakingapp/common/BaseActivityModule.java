@@ -3,8 +3,11 @@ package com.dansuse.bakingapp.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dansuse.bakingapp.SimpleIdlingResource;
 import com.dansuse.bakingapp.di.ActivityScoped;
 
 import javax.inject.Named;
@@ -37,5 +40,13 @@ public abstract class BaseActivityModule {
     @ActivityScoped
     static android.support.v4.app.FragmentManager activityFragmentManager(AppCompatActivity activity) {
         return activity.getSupportFragmentManager();
+    }
+
+    @Provides
+    @ActivityScoped
+    @VisibleForTesting
+    @NonNull
+    static SimpleIdlingResource provideIdlingResource(){
+        return new SimpleIdlingResource();
     }
 }

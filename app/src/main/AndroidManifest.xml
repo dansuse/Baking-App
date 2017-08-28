@@ -13,16 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recipes.RecipesActivity">
+        <activity android:name=".recipes.RecipesActivity"
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".recipedetail.RecipeDetailActivity">
+        <activity
+            android:name=".recipedetail.RecipeDetailActivity"
+            android:parentActivityName=".recipes.RecipesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".recipes.RecipesActivity" />
         </activity>
-        <activity android:name=".recipestepdetail.RecipeStepDetailActivity">
+        <activity
+            android:name=".recipestepdetail.RecipeStepDetailActivity">
         </activity>
 
         <receiver android:name=".RecipeWidgetProvider">
@@ -35,12 +42,14 @@
                 android:resource="@xml/recipe_widget_provider_info"/>
         </receiver>
         <provider
-            android:authorities="com.dansuse.bakingapp"
             android:name=".data.source.local.RecipeContentProvider"
+            android:authorities="com.dansuse.bakingapp"
             android:exported="true"/>
-        <service android:name=".RecipeWidgetService" />
-        <service android:name=".ListWidgetService"
-                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <service android:name=".RecipeWidgetService"/>
+        <service
+            android:name=".ListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

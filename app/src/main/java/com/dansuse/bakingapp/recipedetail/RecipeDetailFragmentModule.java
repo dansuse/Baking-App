@@ -2,7 +2,6 @@ package com.dansuse.bakingapp.recipedetail;
 
 import android.content.Context;
 
-import com.dansuse.bakingapp.common.BaseActivity;
 import com.dansuse.bakingapp.common.BaseActivityModule;
 import com.dansuse.bakingapp.di.FragmentScoped;
 
