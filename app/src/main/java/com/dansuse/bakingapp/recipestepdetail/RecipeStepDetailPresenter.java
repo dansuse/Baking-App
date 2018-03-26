@@ -46,6 +46,7 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     @Override
     public void onResume() {
+        Log.d("tes123", "onResume- " + mStep.getShortDescription());
         if (mSDKInt <= 23 || mView.isExoPlayerNull()) {
             checkVideoURLThenInitExoPlayer();
         }
@@ -62,6 +63,7 @@ public class RecipeStepDetailPresenter extends BasePresenter<RecipeStepDetailCon
 
     @Override
     public void onPause() {
+        Log.d("tes123", "onPause- " + mStep.getShortDescription());
         if (mSDKInt <= 23) {
             mView.releasePlayer();
         }

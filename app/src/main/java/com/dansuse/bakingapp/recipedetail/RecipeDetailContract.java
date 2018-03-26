@@ -11,6 +11,7 @@ public interface RecipeDetailContract {
         void showRecyclerViewWithData();
         void showErrorMessage(String errorMessage);
         void showMessageNoDataAvailable();
+        //void showSnackBar(String message);
     }
 
     interface Presenter extends com.dansuse.bakingapp.common.presenter.Presenter {

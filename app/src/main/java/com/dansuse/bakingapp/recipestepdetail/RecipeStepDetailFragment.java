@@ -143,8 +143,54 @@ public class RecipeStepDetailFragment extends BaseViewFragment<RecipeStepDetailC
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setActionBarTitle();
+        Log.d("tes123", String.valueOf(getUserVisibleHint()));
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isResumed()){
+            setActionBarTitle();
+            if(isVisibleToUser){
+                if(mExoPlayer == null){
+                    checkVideoURLThenInitExoPlayer();
+                }else{
+                    mExoPlayer.setPlayWhenReady(true);
+                }
+                //Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |visible");
+            }else{
+                if(mExoPlayer != null){
+                    mExoPlayer.setPlayWhenReady(false);
+                    //mExoPlayer.stop();
+                }
+                //Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |invisible");
+            }
+        }
+    }
+
+    private void checkVideoURLThenInitExoPlayer() {
+        if (mStep.getVideoURL() != null && !mStep.getVideoURL().equals("")) {
+            showExoPlayer();
+            initializePlayer(Uri.parse(mStep.getVideoURL()));
+        } else {
+            hideExoPlayer();
+        }
+    }
+
+    void setActionBarTitle(){
+        if(activityContext instanceof RecipeStepDetailActivity){
+            if(((RecipeStepDetailActivity)activityContext).getSupportActionBar() != null && getUserVisibleHint()){
+                ((RecipeStepDetailActivity)activityContext).getSupportActionBar().setTitle(mStep.getShortDescription());
+            }
+        }
+    }
+
+    @Override
     public void initializePlayer(Uri mediaUri) {
-        Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |initializePlayer");
+        //Log.d("tes123", "Fragment| " + String.valueOf(mStep.getShortDescription()) + " |initializePlayer");
         mPlayerView.requestFocus();
         if (mExoPlayer == null) {
             // 1. Create a default TrackSelector
