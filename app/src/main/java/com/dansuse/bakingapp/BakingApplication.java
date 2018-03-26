@@ -3,12 +3,14 @@ package com.dansuse.bakingapp;
 import android.app.Activity;
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.dansuse.bakingapp.di.component.DaggerAppComponent;
 
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Daniel on 20/08/2017.
@@ -21,6 +23,7 @@ public class BakingApplication extends Application implements HasActivityInjecto
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         //cara baru, referensi = https://proandroiddev.com/how-to-android-dagger-2-10-2-11-butterknife-mvp-part-1-eb0f6b970fd
         DaggerAppComponent.builder().create(this).inject(this);
     }
